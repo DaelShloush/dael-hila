@@ -13,8 +13,9 @@ body{font-family:"Heebo",-apple-system,Arial,sans-serif;min-height:100vh;overflo
 .wrap{position:relative;z-index:1;max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
 .card{background:rgba(255,255,255,.12);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.25);
  border-radius:28px;padding:26px 22px;text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.35)}
-.photo{width:200px;height:200px;object-fit:cover;border-radius:50%;border:4px solid rgba(255,255,255,.6);
- box-shadow:0 10px 40px rgba(0,0,0,.4);margin-bottom:14px}
+.carousel{position:relative;width:200px;height:200px;margin:0 auto 14px}
+.photo{position:absolute;inset:0;width:200px;height:200px;object-fit:cover;border-radius:50%;border:4px solid rgba(255,255,255,.6);box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.cslide{opacity:0;transition:opacity 1.1s ease}.cslide.active{opacity:1}
 .names{font-family:"Amatic SC",cursive;font-size:56px;line-height:1;margin-bottom:4px;text-shadow:0 2px 20px rgba(255,255,255,.3)}
 .heart{display:inline-block;animation:beat 1.3s ease-in-out infinite;color:#ff5c8a}
 @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}}
@@ -49,7 +50,7 @@ h2{font-family:"Amatic SC",cursive;font-size:40px;margin-bottom:2px}
 <div class="hearts" id="hearts"></div>
 <div class="wrap">
  <div class="card">
-  <img class="photo" src="couple.jpg" alt="דעאל והילה">
+  <div class="carousel"><img class="photo cslide active" src="couple1.jpg" alt="דעאל והילה"><img class="photo cslide" src="couple2.jpg" alt="דעאל והילה"></div>
   <div class="names">דעאל <span class="heart">♥</span> הילה</div>
   <div class="since">יחד מאז 1 בינואר 2024</div>
   <div class="grid">
@@ -106,6 +107,9 @@ function tick(){let s=Math.floor((dl-Date.now())/1000);if(s<0)s=0;
  const H=String(Math.floor(s/3600)).padStart(2,'0'),M=String(Math.floor(s%3600/60)).padStart(2,'0'),S=String(s%60).padStart(2,'0');
  clock.textContent=H+':'+M+':'+S;if(s===0)clock.parentElement.innerHTML='🤍 תמיד אפשר לבחור';}
 tick();setInterval(tick,1000);
+// photo carousel
+const slides=[...document.querySelectorAll('.cslide')];let ci=0;
+if(slides.length>1)setInterval(()=>{slides[ci].classList.remove('active');ci=(ci+1)%slides.length;slides[ci].classList.add('active');},4000);
 // gift selection
 let choice=null;
 document.querySelectorAll('.gift').forEach(g=>g.addEventListener('click',()=>{
