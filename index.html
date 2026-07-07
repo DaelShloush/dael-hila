@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>דעאל ♡ הילה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;box-sizing:border-box}
+  body{font-family:"Heebo",-apple-system,Arial,sans-serif;min-height:100vh;overflow-x:hidden;
+    background:linear-gradient(160deg,#2b1055,#7597de 40%,#e05a8e 80%,#f9a26c);
+    display:flex;align-items:center;justify-content:center;padding:24px;color:#fff}
+  .hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+  .hearts span{position:absolute;bottom:-40px;color:rgba(255,255,255,.5);font-size:20px;
+    animation:rise linear infinite}
+  @keyframes rise{to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
+  .card{position:relative;z-index:1;background:rgba(255,255,255,.12);backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.25);border-radius:28px;padding:40px 28px;max-width:560px;width:100%;
+    text-align:center;box-shadow:0 24px 70px rgba(0,0,0,.35)}
+  .names{font-family:"Amatic SC",cursive;font-size:60px;line-height:1;margin-bottom:6px;
+    text-shadow:0 2px 20px rgba(255,255,255,.3)}
+  .heart{display:inline-block;animation:beat 1.3s ease-in-out infinite;color:#ff5c8a}
+  @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}}
+  .since{font-weight:300;font-size:16px;color:#f3e9ff;margin-bottom:26px;letter-spacing:.5px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
+  .box{background:rgba(255,255,255,.14);border-radius:16px;padding:14px 6px}
+  .num{font-size:30px;font-weight:700}
+  .lbl{font-size:12px;font-weight:300;color:#f0e6ff;margin-top:2px}
+  .days{font-size:15px;font-weight:300;color:#ffe9f2;margin-bottom:20px}
+  .days b{font-weight:700;font-size:19px}
+  .msg{font-weight:300;font-size:16px;line-height:1.8;color:#fff}
+  .sig{margin-top:18px;font-size:13px;color:#f3d9ff;font-weight:300}
+</style></head>
+<body>
+<div class="hearts" id="hearts"></div>
+<div class="card">
+  <div class="names">דעאל <span class="heart">♥</span> הילה</div>
+  <div class="since">יחד מאז 1 בינואר 2024</div>
+  <div class="grid">
+    <div class="box"><div class="num" id="y">0</div><div class="lbl">שנים</div></div>
+    <div class="box"><div class="num" id="mo">0</div><div class="lbl">חודשים</div></div>
+    <div class="box"><div class="num" id="d">0</div><div class="lbl">ימים</div></div>
+    <div class="box"><div class="num" id="hh">0</div><div class="lbl">שעות</div></div>
+    <div class="box"><div class="num" id="mm">0</div><div class="lbl">דקות</div></div>
+    <div class="box"><div class="num" id="ss">0</div><div class="lbl">שניות</div></div>
+  </div>
+  <div class="days">וזה כבר <b id="total">0</b> ימים של אהבה 🤍</div>
+  <div class="msg">כל יום איתך הוא מתנה.<br>תודה שאת שלי, ואני שלך — היום ותמיד. ❤️</div>
+  <div class="sig">נבנה באהבה 🤍</div>
+</div>
+<script>
+  // floating hearts
+  const h=document.getElementById('hearts');
+  for(let i=0;i<18;i++){const s=document.createElement('span');s.textContent='♥';
+    s.style.left=Math.random()*100+'%';s.style.fontSize=(12+Math.random()*22)+'px';
+    s.style.animationDuration=(6+Math.random()*8)+'s';s.style.animationDelay=(Math.random()*8)+'s';h.appendChild(s);}
+  const start=new Date('2024-01-01T00:00:00');
+  function upd(){
+    const now=new Date();
+    let y=now.getFullYear()-start.getFullYear(),m=now.getMonth()-start.getMonth(),d=now.getDate()-start.getDate();
+    let hh=now.getHours()-start.getHours(),mm=now.getMinutes()-start.getMinutes(),ss=now.getSeconds()-start.getSeconds();
+    if(ss<0){ss+=60;mm--;}if(mm<0){mm+=60;hh--;}if(hh<0){hh+=24;d--;}
+    if(d<0){const pm=new Date(now.getFullYear(),now.getMonth(),0).getDate();d+=pm;m--;}
+    if(m<0){m+=12;y--;}
+    document.getElementById('y').textContent=y;
+    document.getElementById('mo').textContent=m;
+    document.getElementById('d').textContent=d;
+    document.getElementById('hh').textContent=hh;
+    document.getElementById('mm').textContent=mm;
+    document.getElementById('ss').textContent=ss;
+    document.getElementById('total').textContent=Math.floor((now-start)/86400000).toLocaleString('he-IL');
+  }
+  upd();setInterval(upd,1000);
+</script>
+</body></html>
